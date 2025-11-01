@@ -191,7 +191,7 @@ user_form() {
   done
 
   # Hash the password using yescrypt
-  password_hash=$(openssl passwd -6 "$password")
+  password_hash=$(printf '%s' "$password" | openssl passwd -6 -stdin)
 
   full_name=$(gum input --placeholder "Used for git authentication (hit return to skip)" --prompt.foreground="#845DF9" --prompt "Full name> ")
   email_address=$(gum input --placeholder "Used for git authentication (hit return to skip)" --prompt.foreground="#845DF9" --prompt "Email address> ")
@@ -466,7 +466,8 @@ if [[ "$INSTALL_MODE" == "auto" ]]; then
       },
       "packages": [ 
         "base-devel", 
-        "git" 
+        "git",
+        "omarchy-keyring"
       ],
       "profile_config": { 
           "gfx_driver": null, 
@@ -554,7 +555,7 @@ else
           "mirror_regions": {},
           "optional_repositories": []
       },
-      "packages": [ "base-devel", "git" ],
+      "packages": [ "base-devel", "git", "omarchy-keyring" ],
       "profile_config": { "gfx_driver": null, "greeter": null, "profile": {} },
       "version": "3.0.9"
   }
